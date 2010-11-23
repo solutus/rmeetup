@@ -9,11 +9,12 @@ module RMeetup
     # based on this event.
     class Event
       attr_accessor :id, :name, :updated, :time, :photo_url, :lat, :lon, :event_url,
-                    :rsvpcount, :fee, :feecurrency, :feedesc
+                    :rsvpcount, :fee, :feecurrency, :feedesc, :description
       
       def initialize(event = {})
         self.id           = event['id'].to_i
         self.name         = event['name']
+        self.description  = event['description']
         self.updated      = DateTime.parse(event['updated'])
         self.time         = DateTime.parse(event['time'])
         self.photo_url    = event['photo_url']
