@@ -26,7 +26,7 @@ module RMeetup
         self.feecurrency  = event['feecurrency']
         self.feedesc      = event['feedesc']
 
-        rsvp_i            = event['utc_rsvp_open_time'].to_i / 1000
+        rsvp_i            = event['utc_rsvp_cutoff'].to_i / 1000
         self.rsvp         = rsvp_i != 0 ? DateTime.parse(Time.at(rsvp_i).to_s) : nil
       end
     end
