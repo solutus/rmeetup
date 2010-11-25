@@ -9,7 +9,7 @@ module RMeetup
     # based on this event.
     class Event
       attr_accessor :id, :name, :updated, :time, :photo_url, :lat, :lon, :event_url,
-                    :rsvpcount, :fee, :feecurrency, :feedesc, :description
+                    :rsvpcount, :fee, :feecurrency, :feedesc, :description, :rsvp
       
       def initialize(event = {})
         self.id           = event['id'].to_i
@@ -25,6 +25,9 @@ module RMeetup
         self.fee          = event['fee']
         self.feecurrency  = event['feecurrency']
         self.feedesc      = event['feedesc']
+
+        rsvp_i            = event['utc_rsvp_open_time'].to_i / 1000
+        self.rsvp         = rsvp_i != 0 ? DateTime.parse(Time.at(rsvp_i).to_s) : nil
       end
     end
   end
