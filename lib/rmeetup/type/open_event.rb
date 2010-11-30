@@ -29,7 +29,7 @@ module RMeetup
       end
 
       class Venue
-        attr_accessor :id, :name, :lat, :lon, :address_1, :address_2, :address_3, :city, :country, :zip, :phone
+        attr_accessor :id, :name, :lat, :lon, :address_1, :address_2, :address_3, :city, :state, :country, :zip, :phone
         def initialize(event = {})
           return if event.nil?
           self.class.instance_methods(false).select{|m| m =~/.*=/}.each{|m| self.send(m, event[m[0..-2]])}
