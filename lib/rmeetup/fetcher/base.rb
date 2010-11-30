@@ -28,7 +28,6 @@ module RMeetup
       # for the request.
       def fetch(options = {})
         url = build_url(options)
-        
         json = get_response(url)
         data = JSON.parse(json)
         
@@ -42,43 +41,48 @@ module RMeetup
       end
       
       protected
-        # OVERRIDE this method to format a result section
-        # as per Result type.
-        # Takes a result in a collection and
-        # formats it to be put back into the collection.
-        def format_result(result)
-          result
-        end
+      # OVERRIDE this method to format a result section
+      # as per Result type.
+      # Takes a result in a collection and
+      # formats it to be put back into the collection.
+      def format_result(result)
+        result
+      end
       
-        def build_url(options)
-          options = encode_options(options)
+      def build_url(options)
+        options = encode_options(options)
           
-          base_url + params_for(options)
-        end
+        base_url + params_for(options)
+      end
       
-        def base_url
+      def base_url
+        case @version 
+        when 2
+          "http://api.meetup.com/2/#{@type}.json/"
+        else
           "http://api.meetup.com/#{@type}.json/"
         end
+      end
         
-        # Create a query string from an options hash
-        def params_for(options)
-          params = []
-          options.each do |key, value|
-            params << "#{key}=#{value}"
-          end
-          "?#{params.join("&")}"
+      # Create a query string from an options hash
+      def params_for(options)
+        params = []
+        options.each do |key, value|
+          params << "#{key}=#{value}"
         end
+        "?#{params.join("&")}"
+      end
         
-        # Encode a hash of options to be used as request parameters
-        def encode_options(options)
-          options.each do |key,value|
-            options[key] = URI.encode(value.to_s)
-          end
+      # Encode a hash of options to be used as request parameters
+      def encode_options(options)
+        options.each do |key,value|
+          options[key] = URI.encode(value.to_s)
         end
+      end
         
-        def get_response(url)
-          Net::HTTP.get_response(URI.parse(url)).body || raise(NoResponseError.new)
-        end
+      def get_response(url)
+        Net::HTTP.get_response(URI.parse(url)).body || raise(NoResponseError.new)
+      end
     end
   end
 end
