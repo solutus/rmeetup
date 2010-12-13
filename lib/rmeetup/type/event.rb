@@ -8,7 +8,7 @@ module RMeetup
     # as progammatically fetch relative data types
     # based on this event.
     class Event
-      attr_accessor :id, :name, :updated, :time, :photo_url, :lat, :lon, :event_url,
+      attr_accessor :id, :name, :updated, :time, :utc_time, :photo_url, :lat, :lon, :event_url,
                     :rsvpcount, :fee, :feecurrency, :feedesc, :description, :rsvp,
                     :venue_state, :venue_city, :venue_address1, :venue_address2, :venue_zip
       
@@ -18,6 +18,7 @@ module RMeetup
         self.description  = event['description']
         self.updated      = DateTime.parse(event['updated'])
         self.time         = DateTime.parse(event['time'])
+        self.utc_time      = event['utc_time']
         self.photo_url    = event['photo_url']
         self.lat          = event['lat'].to_f
         self.lon          = event['lon'].to_f
