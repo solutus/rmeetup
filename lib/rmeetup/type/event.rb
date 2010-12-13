@@ -16,9 +16,9 @@ module RMeetup
         self.id           = event['id'].to_i
         self.name         = event['name']
         self.description  = event['description']
-        self.updated      = DateTime.parse(event['updated'])
-        self.time         = DateTime.parse(event['time'])
-        self.utc_time      = event['utc_time']
+        self.updated      = Time.parse(event['updated'])
+        self.time         = Time.parse(event['time'])
+        self.utc_time     = event['utc_time']
         self.photo_url    = event['photo_url']
         self.lat          = event['lat'].to_f
         self.lon          = event['lon'].to_f
